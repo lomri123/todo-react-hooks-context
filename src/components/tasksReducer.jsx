@@ -3,10 +3,7 @@ import uuid from "uuid/v4";
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD":
-      return [
-        ...state,
-        { id: uuid(), task: action.title, date: action.date, status: false }
-      ];
+      return [...state, { id: uuid(), task: action.title, status: false }];
     case "DELETE":
       return state.filter(todo => todo.id !== action.id);
     case "TOGGLE":
@@ -15,9 +12,7 @@ const reducer = (state, action) => {
       );
     case "EDIT":
       return state.map(todo =>
-        todo.id === action.id
-          ? { ...todo, task: action.task, date: action.date }
-          : todo
+        todo.id === action.id ? { ...todo, task: action.task } : todo
       );
     default:
       return state;

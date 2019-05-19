@@ -3,7 +3,7 @@ import React from "react";
 function TodoNavbar({ handleSelectedItemClick, selectedItem }) {
   return (
     <>
-      <ul className="nav justify-content-center nav-tabs">
+      <ul className="nav navbar justify-content-center nav-tabs">
         <li
           name="all"
           className={`nav-link  ${"all" === selectedItem ? "active" : ""}`}

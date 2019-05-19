@@ -14,39 +14,48 @@ function TodoList({
         {todoListProps.map(todo =>
           todo.id !== isEditing ? (
             <li
-              className={`list-group-item  ${
+              className={`list-group-item todo-list ${
                 todo.status ? "checked-list" : ""
               }`}
               key={todo.id}
             >
-              <input
-                type="checkbox"
-                onClick={() => changeStatus(todo)}
-                className="m-2"
-                defaultChecked={todo.status ? "checked" : ""}
-              />
-              {todo.task}
-              {todo.date}
-              <button
-                className="float-right btn btn-info btn-sm m-2"
-                onClick={() => handleEdit(todo.id)}
-              >
-                Edit
-              </button>
-              <button
-                className="float-right btn btn-info btn-sm m-2 "
-                onClick={() => handleDelete(todo.id)}
-              >
-                Delete
-              </button>
+              <div className="d-flex bd-highlight">
+                <div className="bd-highlight">
+                  <input
+                    type="checkbox"
+                    onClick={() => changeStatus(todo)}
+                    className="position-static m-2 "
+                    defaultChecked={todo.status ? "checked" : ""}
+                  />
+                </div>
+                <div className="bd-highlight flex-grow-1">{todo.task}</div>
+                <div className="ml-auto  bd-highlight">
+                  <button
+                    className="btn btn-info btn-sm mx-2"
+                    onClick={() => handleEdit(todo.id)}
+                  >
+                    <i className="fa fa-pencil" />
+                  </button>
+                  <button
+                    className="btn btn-info btn-sm mx-2 "
+                    onClick={() => handleDelete(todo.id)}
+                  >
+                    <i className=" fa fa-trash" />
+                  </button>
+                </div>
+              </div>
             </li>
           ) : (
-            <li className="list-group-item row" key={todo.id}>
+            <li className="list-group-item" key={todo.id}>
               <TodoForm />
             </li>
           )
         )}
-        {isEditing ? null : <TodoForm />}
+        {isEditing ? null : (
+          <li className="list-group-item">
+            <TodoForm placeHolder="Add new task" />
+          </li>
+        )}
       </ul>
     );
   return null;

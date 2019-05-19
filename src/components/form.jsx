@@ -1,11 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import Joi from "joi-browser";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { Context } from "./context";
-import moment from "moment";
 
-function TodoForm() {
+function TodoForm(props) {
   const { todos, dispatchTasks, editedTask, dispatchEdit } = useContext(
     Context
   );
@@ -14,8 +11,6 @@ function TodoForm() {
     title: ""
   });
 
-  const [date, setDate] = useState();
-
   const [errors, setErrors] = useState({
     title: ""
   });
@@ -23,9 +18,7 @@ function TodoForm() {
   useEffect(() => {
     if (editedTask !== "") {
       let index = todos.findIndex(i => i.id === editedTask);
-      let tmpDate = new Date(todos[index].date);
       setValues({ title: todos[index].task });
-      setDate(tmpDate);
     }
   }, []);
 
@@ -40,9 +33,6 @@ function TodoForm() {
     validate(name, value);
   };
 
-  const updateDate = e => {
-    setDate(e);
-  };
   const schema = {
     title: Joi.string().required()
   };
@@ -60,15 +50,11 @@ function TodoForm() {
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    let tmpDate = moment(date).format("MM/DD/YYYY");
-    // let newDate = new Date(tmpDate);
-
     if (editedTask === "") {
       console.log("add");
       dispatchTasks({
         type: "ADD",
-        title: form.title,
-        date: tmpDate
+        title: form.title
       });
     } else {
       console.log("edit");
@@ -76,38 +62,36 @@ function TodoForm() {
       dispatchTasks({
         type: "EDIT",
         id: editedTask,
-        task: form.title,
-        date: tmpDate
+        task: form.title
       });
       dispatchEdit({ type: "EDIT", id: "" });
     }
     setValues({ title: "" });
-    setDate();
     setErrors({ title: "" });
   };
 
   return (
     <React.Fragment>
-      <form className="col-8 mx-auto" onSubmit={handleFormSubmit}>
-        <div className="form-group row">
+      <form className="form-inline" onSubmit={handleFormSubmit}>
+        <div className="bd-highlight flex-grow-1">
           <input
             type="text"
             name="title"
+            style={{ width: "80%" }}
+            placeholder={props.placeHolder}
             onChange={updateField}
             value={form.title}
             className="form-control"
           />
           {errors.title ? (
-            <label className="alert alert-danger">{errors.title}</label>
+            <label className="alert alert-danger" style={{ width: "80%" }}>
+              {errors.title}
+            </label>
           ) : null}
-          <DatePicker
-            selected={date}
-            name="date"
-            onChange={updateDate}
-            placeholderText="Due date"
-          />
-          <button type="submit" className="btn btn-primary">
-            Submit
+        </div>
+        <div className="ml-auto bd-highlight">
+          <button type="submit" className="btn btn-info btn-sm mx-2">
+            <i className="fa fa-check" />
           </button>
         </div>
       </form>
