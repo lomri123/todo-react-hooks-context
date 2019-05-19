@@ -5,13 +5,7 @@ import editReducer from "./editReducer";
 
 export const Context = React.createContext();
 
-const todoList = [
-  { id: 1, task: "test1", status: true },
-  { id: 2, task: "test2", status: true },
-  { id: 3, task: "test3", status: false },
-  { id: 4, task: "test4", status: true },
-  { id: 5, task: "test5", status: false }
-];
+const todoList = [];
 
 const completionStatus = "all";
 

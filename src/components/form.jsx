@@ -11,10 +11,6 @@ function TodoForm(props) {
     title: ""
   });
 
-  const [errors, setErrors] = useState({
-    title: ""
-  });
-
   useEffect(() => {
     if (editedTask !== "") {
       let index = todos.findIndex(i => i.id === editedTask);
@@ -30,35 +26,16 @@ function TodoForm(props) {
       ...form,
       [name]: value
     });
-    validate(name, value);
-  };
-
-  const schema = {
-    title: Joi.string().required()
-  };
-
-  const validate = (name, value) => {
-    const tmpSchema = { [name]: schema[name] };
-    const obj = { [name]: value };
-    const { error } = Joi.validate(obj, tmpSchema);
-    if (error) {
-      setErrors({ ...errors, [name]: error.details[0].message });
-    } else {
-      setErrors({ ...errors, [name]: "" });
-    }
   };
 
   const handleFormSubmit = e => {
     e.preventDefault();
     if (editedTask === "") {
-      console.log("add");
       dispatchTasks({
         type: "ADD",
         title: form.title
       });
     } else {
-      console.log("edit");
-
       dispatchTasks({
         type: "EDIT",
         id: editedTask,
@@ -67,7 +44,6 @@ function TodoForm(props) {
       dispatchEdit({ type: "EDIT", id: "" });
     }
     setValues({ title: "" });
-    setErrors({ title: "" });
   };
 
   return (
@@ -83,14 +59,13 @@ function TodoForm(props) {
             value={form.title}
             className="form-control"
           />
-          {errors.title ? (
-            <label className="alert alert-danger" style={{ width: "80%" }}>
-              {errors.title}
-            </label>
-          ) : null}
         </div>
-        <div className="ml-auto bd-highlight">
-          <button type="submit" className="btn btn-info btn-sm mx-2">
+        <div className="ml-auto bd-highlight align-self-start">
+          <button
+            type="submit"
+            className="btn btn-info btn-sm mx-2"
+            disabled={`${form.title === "" ? "disabled" : ""}`}
+          >
             <i className="fa fa-check" />
           </button>
         </div>
