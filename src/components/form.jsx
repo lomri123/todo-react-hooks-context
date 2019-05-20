@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import Joi from "joi-browser";
 import { Context } from "./context";
 
 function TodoForm(props) {
@@ -53,7 +52,7 @@ function TodoForm(props) {
           <input
             type="text"
             name="title"
-            style={{ width: "80%" }}
+            style={{ width: "75%" }}
             placeholder={props.placeHolder}
             onChange={updateField}
             value={form.title}

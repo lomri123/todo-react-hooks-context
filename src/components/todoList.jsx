@@ -13,7 +13,7 @@ function TodoList({
       <li className={`list-group-item ${isEditing ? "disabled" : ""}`}>
         <TodoForm placeHolder="Add new task" />
       </li>
-      {todoListProps.sort().map(todo =>
+      {todoListProps.map(todo =>
         todo.id !== isEditing ? (
           <li
             className={`list-group-item todo-list ${
@@ -30,8 +30,10 @@ function TodoList({
                   defaultChecked={todo.status ? "checked" : ""}
                 />
               </div>
-              <div className="bd-highlight flex-grow-1">{todo.task}</div>
-              <div className="ml-auto  bd-highlight">
+              <div className="bd-highlight flex-grow-1 break-words-lines">
+                {todo.task}
+              </div>
+              <div className="ml-auto bd-highlight ">
                 <button
                   className="btn btn-info btn-sm mx-2"
                   onClick={() => handleEdit(todo.id)}
@@ -42,7 +44,7 @@ function TodoList({
                   className="btn btn-info btn-sm mx-2 "
                   onClick={() => handleDelete(todo.id)}
                 >
-                  <i className=" fa fa-trash" />
+                  <i className="fa fa-trash" />
                 </button>
               </div>
             </div>

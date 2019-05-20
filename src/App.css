@@ -1,3 +1,6 @@
+.main-app {
+  min-width: 400px;
+}
 .checked-list {
   text-decoration: line-through;
 }
@@ -8,4 +11,12 @@
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+.break-words-lines {
+  max-width: 60% !important;
+  word-break: break-all !important;
+  word-wrap: break-word !important;
+  vertical-align: top;
+  line-height: 15px;
 }
