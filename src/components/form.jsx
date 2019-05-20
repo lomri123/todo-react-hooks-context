@@ -15,7 +15,7 @@ function TodoForm(props) {
       let index = todos.findIndex(i => i.id === editedTask);
       setValues({ title: todos[index].task });
     }
-  }, []);
+  }, [editedTask, todos]);
 
   const updateField = e => {
     let { value } = e.target;
