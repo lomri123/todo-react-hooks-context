@@ -1,15 +1,11 @@
 import React, { useReducer } from "react";
 import todoReducer from "./tasksReducer";
 import toggleReducer from "./toggleReducer";
-import editReducer from "./editReducer";
-
 export const Context = React.createContext();
 
 const todoList = [];
 
 const completionStatus = "all";
-
-const editedTaskId = "";
 
 function Provider(props) {
   const [todos, dispatchTasks] = useReducer(todoReducer, todoList);
@@ -17,7 +13,6 @@ function Provider(props) {
     toggleReducer,
     completionStatus
   );
-  const [editedTask, dispatchEdit] = useReducer(editReducer, editedTaskId);
 
   return (
     <Context.Provider
@@ -25,9 +20,7 @@ function Provider(props) {
         todos,
         dispatchTasks,
         completion,
-        dispatchToggle,
-        editedTask,
-        dispatchEdit
+        dispatchToggle
       }}
     >
       {props.children}

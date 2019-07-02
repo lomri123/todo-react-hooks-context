@@ -1,61 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Context } from "./context";
+import React from "react";
 
-function TodoForm(props) {
-  const { todos, dispatchTasks, editedTask, dispatchEdit } = useContext(
-    Context
-  );
-
-  const [form, setValues] = useState({
-    title: ""
-  });
-
-  useEffect(() => {
-    if (editedTask !== "") {
-      let index = todos.findIndex(i => i.id === editedTask);
-      setValues({ title: todos[index].task });
-    }
-  }, [editedTask, todos]);
-
-  const updateField = e => {
-    let { value } = e.target;
-    let name = e.target.name;
-
-    setValues({
-      ...form,
-      [name]: value
-    });
-  };
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    if (editedTask === "") {
-      dispatchTasks({
-        type: "ADD",
-        title: form.title
-      });
-    } else {
-      dispatchTasks({
-        type: "EDIT",
-        id: editedTask,
-        task: form.title
-      });
-      dispatchEdit({ type: "EDIT", id: "" });
-    }
-    setValues({ title: "" });
-  };
-
+function TodoForm({ formTitle, formValue, handleFormSubmit, updateField }) {
   return (
     <React.Fragment>
       <form className="form-inline" onSubmit={handleFormSubmit}>
         <div className="bd-highlight flex-grow-1">
           <input
             type="text"
-            name="title"
+            name={formTitle}
             style={{ width: "75%" }}
-            placeholder={props.placeHolder}
-            onChange={updateField}
-            value={form.title}
+            placeholder="Add a task"
+            onChange={e => updateField(e)}
+            value={formValue}
             className="form-control"
           />
         </div>
@@ -63,7 +19,7 @@ function TodoForm(props) {
           <button
             type="submit"
             className="btn btn-info btn-sm mx-2"
-            disabled={`${form.title === "" ? "disabled" : ""}`}
+            // disabled={`${form.task === "" ? "disabled" : ""}`}
           >
             <i className="fa fa-check" />
           </button>
