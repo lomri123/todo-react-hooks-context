@@ -59,7 +59,6 @@ function TodoListContainer(props) {
 
   const handleFormSubmit = async (id, addTask, editTask) => {
     if (id === "") {
-      console.log("add");
       try {
         let { data: result } = await axios.post("http://localhost:3000/", {
           todoData: addTask
@@ -74,7 +73,7 @@ function TodoListContainer(props) {
       }
     } else {
       try {
-        await axios.put("http://localhost:3000/", {
+        await axios.put(" ", {
           id: id,
           updateData: { task: editTask }
         });
