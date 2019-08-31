@@ -1,6 +1,6 @@
 import React from "react";
 
-function TodoForm({ formTitle, formValue, handleFormSubmit, updateField }) {
+function NewTodoForm({ formTitle, formValue, handleFormSubmit, updateField }) {
   return (
     <React.Fragment>
       <form className="form-inline" onSubmit={handleFormSubmit}>
@@ -29,4 +29,4 @@ function TodoForm({ formTitle, formValue, handleFormSubmit, updateField }) {
   );
 }
 
-export default TodoForm;
+export default NewTodoForm;

@@ -1,27 +1,27 @@
 import React from "react";
 
-function TodoNavbar({ handleSelectedItemClick, selectedItem }) {
+function StatusNavbar({ handleSelectedItemClick, selectedItem }) {
   return (
     <>
       <ul className="nav navbar justify-content-center nav-tabs">
         <li
-          name="all"
-          className={`nav-link  ${"all" === selectedItem ? "active" : ""}`}
+          name="ALL"
+          className={`nav-link  ${selectedItem === "ALL" ? "active" : ""}`}
           onClick={e => handleSelectedItemClick(e.target.getAttribute("name"))}
         >
           All
         </li>
         <li
-          name="completed"
-          className={`nav-link ${"completed" === selectedItem ? "active" : ""}`}
+          name="COMPLETE"
+          className={`nav-link ${selectedItem === "COMPLETE" ? "active" : ""}`}
           onClick={e => handleSelectedItemClick(e.target.getAttribute("name"))}
         >
           Completed
         </li>
         <li
-          name="not-completed"
+          name="NOT_COMPLETE"
           className={`nav-link ${
-            "not-completed" === selectedItem ? "active" : ""
+            selectedItem === "NOT_COMPLETE" ? "active" : ""
           }`}
           onClick={e => handleSelectedItemClick(e.target.getAttribute("name"))}
         >
@@ -32,4 +32,4 @@ function TodoNavbar({ handleSelectedItemClick, selectedItem }) {
   );
 }
 
-export default TodoNavbar;
+export default StatusNavbar;

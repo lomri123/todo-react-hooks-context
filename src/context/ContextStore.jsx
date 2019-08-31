@@ -1,16 +1,16 @@
 import React, { useReducer } from "react";
-import todoReducer from "./tasksReducer";
-import toggleReducer from "./toggleReducer";
+import todoReducer from "./reducers/TasksReducer";
+import ToggleStatusReducer from "./reducers/ToggleStatusReducer";
 export const Context = React.createContext();
 
 const todoList = [];
 
-const completionStatus = "all";
+const completionStatus = "ALL";
 
 function Provider(props) {
   const [todos, dispatchTasks] = useReducer(todoReducer, todoList);
   const [completion, dispatchToggle] = useReducer(
-    toggleReducer,
+    ToggleStatusReducer,
     completionStatus
   );
 

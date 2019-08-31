@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
-import { Context } from "./context";
-import TodoList from "./todoList";
-import TodoNavbar from "./todoNavbar";
+import { Context } from "../context/ContextStore";
+import TodoList from "./listBody/TodoList";
+import StatusNavbar from "./navBar/StatusNavbar";
 import { filteredTodoList } from "../utils";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function TodoListContainer(props) {
+function AppContainer() {
   const { todos, dispatchTasks, completion, dispatchToggle } = useContext(
     Context
   );
@@ -73,7 +73,7 @@ function TodoListContainer(props) {
       }
     } else {
       try {
-        await axios.put(" ", {
+        await axios.put("http://localhost:3000/", {
           id: id,
           updateData: { task: editTask }
         });
@@ -105,18 +105,20 @@ function TodoListContainer(props) {
 
   return (
     <>
-      <TodoNavbar
-        selectedItem={completion}
-        handleSelectedItemClick={handleSelectedItemClick}
-      />
-      <TodoList
-        todoListProps={results}
-        changeStatus={changeStatus}
-        handleDelete={handleDelete}
-        formSubmitProps={handleFormSubmit}
-      />
+      <div className="container mx-auto p-3 col-6 main-app">
+        <StatusNavbar
+          selectedItem={completion}
+          handleSelectedItemClick={handleSelectedItemClick}
+        />
+        <TodoList
+          todoListProps={results}
+          changeStatus={changeStatus}
+          handleDelete={handleDelete}
+          formSubmitProps={handleFormSubmit}
+        />
+      </div>
     </>
   );
 }
 
-export default TodoListContainer;
+export default AppContainer;

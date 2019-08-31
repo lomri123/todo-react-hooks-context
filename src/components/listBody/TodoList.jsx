@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import TodoForm from "./form";
+import NewTodoForm from "../forms/NewTodoForm";
+import SingleTodo from "./SingleTodo";
 
 function TodoList({
   todoListProps,
@@ -42,7 +43,7 @@ function TodoList({
   return (
     <ul className="list-group">
       <li className={`list-group-item ${form.id !== "" ? "disabled" : ""}`}>
-        <TodoForm
+        <NewTodoForm
           formValue={form.addTask}
           formTitle="add"
           updateField={updateField}
@@ -51,43 +52,19 @@ function TodoList({
       </li>
       {todoListProps.map(todo =>
         todo._id !== form.id ? (
-          <li
-            className={`list-group-item todo-list ${
-              todo.status ? "checked-list" : ""
-            }`}
+          <SingleTodo
             key={todo._id}
-          >
-            <div className="d-flex bd-highlight">
-              <div className="bd-highlight">
-                <input
-                  type="checkbox"
-                  onClick={() => changeStatus(todo)}
-                  className="position-static m-2 "
-                  defaultChecked={todo.status ? "checked" : ""}
-                />
-              </div>
-              <div className="bd-highlight flex-grow-1 break-words-lines mt-1">
-                {todo.task}
-              </div>
-              <div className="ml-auto bd-highlight ">
-                <button
-                  className="btn btn-info btn-sm mx-2"
-                  onClick={() => handleEditClick(todo)}
-                >
-                  <i className="fa fa-pencil" />
-                </button>
-                <button
-                  className="btn btn-info btn-sm mx-2 "
-                  onClick={() => handleDelete(todo._id)}
-                >
-                  <i className="fa fa-trash" />
-                </button>
-              </div>
-            </div>
-          </li>
+            status={todo.status}
+            changeStatus={changeStatus}
+            todo={todo}
+            task={todo.task}
+            handleEditClick={handleEditClick}
+            id={todo._id}
+            handleDelete={handleDelete}
+          />
         ) : (
           <li className="list-group-item" key={todo._id}>
-            <TodoForm
+            <NewTodoForm
               formValue={form.editTask}
               formTitle="edit"
               updateField={updateField}

@@ -1,7 +1,7 @@
 export const filteredTodoList = (todos, completionStatus) => {
-  if (completionStatus === "all") {
+  if (completionStatus === "ALL") {
     return todos;
-  } else if (completionStatus === "completed") {
+  } else if (completionStatus === "COMPLETE") {
     return todos.filter(todo => todo.status === true);
   } else {
     return todos.filter(todo => todo.status === false);
